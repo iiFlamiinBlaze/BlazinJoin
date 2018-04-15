@@ -1,9 +1,16 @@
----
-# AdvancedJoin by iiFlamiinBlaze
-#     Simple yet advanced JoinTitle plugin!
-#     Github: https://github.com/iiFlamiinBlaze
+#  ____  _            _______ _          _____
+# |  _ \| |          |__   __| |        |  __ \
+# | |_) | | __ _ _______| |  | |__   ___| |  | | _____   __
+# |  _ <| |/ _` |_  / _ \ |  | '_ \ / _ \ |  | |/ _ \ \ / /
+# | |_) | | (_| |/ /  __/ |  | | | |  __/ |__| |  __/\ V /
+# |____/|_|\__,_/___\___|_|  |_| |_|\___|_____/ \___| \_/
 
-# You can use & for color coding in your messages!
+# AdvancedJoin Configuration File:
+#  You can use & for color coding in your messages.
+#   Default Config:
+#      title: "&aWelcome to the Server!"
+#      subtitle: "&bThis is a great server!"
+#      no-permission: "&cYou do not have permission to use this command"
 
 # The below config is the message on top that sends when a player joins the server (title).
 title: "&aWelcome to the Server!"
@@ -12,5 +19,5 @@ title: "&aWelcome to the Server!"
 subtitle: "&bThis is a great server!"
 
 # The below config is the message that sends when a player does not have permission to use the titlejoin command (no permission).
-no_permission: "&cYou do not have permission to use this command"
+no-permission: "&cYou do not have permission to use this command"
 ...

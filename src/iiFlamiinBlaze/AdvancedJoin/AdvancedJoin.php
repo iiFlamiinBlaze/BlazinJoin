@@ -1,5 +1,12 @@
 <?php
 /**
+ *  ____  _            _______ _          _____
+ * |  _ \| |          |__   __| |        |  __ \
+ * | |_) | | __ _ _______| |  | |__   ___| |  | | _____   __
+ * |  _ <| |/ _` |_  / _ \ |  | '_ \ / _ \ |  | |/ _ \ \ / /
+ * | |_) | | (_| |/ /  __/ |  | | | |  __/ |__| |  __/\ V /
+ * |____/|_|\__,_/___\___|_|  |_| |_|\___|_____/ \___| \_/
+ *
  * Copyright (C) 2018 iiFlamiinBlaze
  *
  * iiFlamiinBlaze's plugins are licensed under MIT license!
@@ -50,7 +57,7 @@ class AdvancedJoin extends PluginBase implements Listener{
             }
             if(!$sender->hasPermission("advancedjoin.command")){
                 $config = $this->getConfig();
-                $message = str_replace("&", "§", $config->get("no_permission"));
+                $message = str_replace("&", "§", $config->get("no-permission"));
                 $sender->sendMessage($message);
                 return false;
             }
