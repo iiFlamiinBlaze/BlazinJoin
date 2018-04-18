@@ -19,7 +19,7 @@
  */
 declare(strict_types=1);
 
-namespace iiFlamiinBlaze\AdvancedJoin;
+namespace iiFlamiinBlaze\BlazinJoin;
 
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
@@ -29,13 +29,13 @@ use pocketmine\command\CommandSender;
 use pocketmine\command\Command;
 use pocketmine\event\player\PlayerJoinEvent;
 
-class AdvancedJoin extends PluginBase implements Listener{
+class BlazinJoin extends PluginBase implements Listener{
 
-    const VERSION = "v1.1.1";
-    const PREFIX = TextFormat::AQUA . "AdvancedJoin" . TextFormat::GOLD . " > ";
+    const VERSION = "v1.1.2";
+    const PREFIX = TextFormat::AQUA . "BlazinJoin" . TextFormat::GOLD . " > ";
 
     public function onEnable() : void{
-        $this->getLogger()->info(AdvancedJoin::PREFIX . "AdvancedJoin by iiFlamiinBlaze enabled!");
+        $this->getLogger()->info(self::PREFIX . "BlazinJoin " . self::VERSION . " by iiFlamiinBlaze enabled!");
         @mkdir($this->getDataFolder());
         $this->saveDefaultConfig();
     }
@@ -47,22 +47,22 @@ class AdvancedJoin extends PluginBase implements Listener{
 
     public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{
         if($command->getName() === "titlejoin"){
-            if(!isset($args[0])){
-                $sender->sendMessage(AdvancedJoin::PREFIX . TextFormat::GRAY . "Usage: /titlejoin about");
+            if(empty($args[0])){
+                $sender->sendMessage(self::PREFIX . TextFormat::GRAY . "Usage: /titlejoin about");
                 return false;
             }
             if(!$sender instanceof Player){
-                $sender->sendMessage(AdvancedJoin::PREFIX . TextFormat::RED . "Use this command in-game!");
+                $sender->sendMessage(self::PREFIX . TextFormat::RED . "Use this command in-game!");
                 return false;
             }
-            if(!$sender->hasPermission("advancedjoin.command")){
+            if(!$sender->hasPermission("blazinjoin.command")){
                 $config = $this->getConfig();
                 $message = str_replace("&", "§", $config->get("no-permission"));
                 $sender->sendMessage($message);
                 return false;
             }
             if($args[0] === "about"){
-                $sender->sendMessage(TextFormat::DARK_GRAY . "-=========AdvancedJoin " . AdvancedJoin::VERSION . " =========-");
+                $sender->sendMessage(TextFormat::DARK_GRAY . "-=========BlazinJoin " . self::VERSION . " =========-");
                 $sender->sendMessage(TextFormat::GREEN . "Author: iiFlamiinBlaze");
                 $sender->sendMessage(TextFormat::GREEN . "GitHub: https://github.com/iiFlamiinBlaze");
                 $sender->sendMessage(TextFormat::GREEN . "Support: https://bit.ly/epediscord");
@@ -74,6 +74,6 @@ class AdvancedJoin extends PluginBase implements Listener{
     }
 
     public function onDisable() : void{
-        $this->getLogger()->info(AdvancedJoin::PREFIX . "AdvancedJoin by iiFlamiinBlaze disabled!");
+        $this->getLogger()->info(self::PREFIX . "BlazinJoin by iiFlamiinBlaze disabled!");
     }
 }

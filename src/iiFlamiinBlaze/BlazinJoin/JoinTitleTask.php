@@ -19,19 +19,19 @@
  */
 declare(strict_types=1);
 
-namespace iiFlamiinBlaze\AdvancedJoin;
+namespace iiFlamiinBlaze\BlazinJoin;
 
 use pocketmine\Player;
 use pocketmine\scheduler\PluginTask;
 
 class JoinTitleTask extends PluginTask{
 
-    /** @var AdvancedJoin */
+    /** @var BlazinJoin $main */
     private $main;
-    /** @var Player */
+    /** @var Player $player */
     private $player;
 
-    public function __construct(AdvancedJoin $main, Player $player){
+    public function __construct(BlazinJoin $main, Player $player){
         $this->main = $main;
         $this->player = $player;
         parent::__construct($main);
