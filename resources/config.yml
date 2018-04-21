@@ -7,17 +7,27 @@
 
 # BlazinJoin Configuration File:
 #  You can use & for color coding in your messages.
+#  You can use {player} to get the player's name.
+#  You can use {line} to make the message go to a new line. (NOTE: does not work with title + subtitle options)
 #   Default Config:
 #      title: "&aWelcome to the Server!"
 #      subtitle: "&bThis is a great server!"
 #      no-permission: "&cYou do not have permission to use this command"
+#      guardian-curse: "enabled"
+#      message: "&aWelcome to the server {player}"
 
 # The below config is the message on top that sends when a player joins the server (title).
-title: "&aWelcome to the Server!"
+title: "&aWelcome to the Server"
 
 # The below config is the message on the bottom that sends when a player joins the server (subtitle).
-subtitle: "&bThis is a great server!"
+subtitle: "&bThis is a great server"
 
 # The below config is the message that sends when a player does not have permission to use the titlejoin command (no permission).
 no-permission: "&cYou do not have permission to use this command"
+
+# The below config enabled or disables the elder guardian curse when you join the server (Options: enabled or disabled).
+guardian-curse: "enabled"
+
+# The below config allows you to send a message to the player when they join.
+message: "&aWelcome to the server {player}"
 ...
