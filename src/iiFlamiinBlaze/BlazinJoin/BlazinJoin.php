@@ -67,7 +67,7 @@ class BlazinJoin extends PluginBase implements Listener{
                     $sender->sendMessage(TextFormat::DARK_GRAY . "-=========BlazinJoin " . self::VERSION . " =========-");
                     $sender->sendMessage(TextFormat::GREEN . "Author: iiFlamiinBlaze");
                     $sender->sendMessage(TextFormat::GREEN . "GitHub: https://github.com/iiFlamiinBlaze");
-                    $sender->sendMessage(TextFormat::GREEN . "Support: https://bit.ly/epediscord");
+                    $sender->sendMessage(TextFormat::GREEN . "Support: https://discord.gg/znEsFsG");
                     $sender->sendMessage(TextFormat::GREEN . "Description: Allows you to customize multiple things when a player joins your server");
                     $sender->sendMessage(TextFormat::DARK_GRAY . "-===============================-");
                     break;
