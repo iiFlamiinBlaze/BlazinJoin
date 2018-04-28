@@ -35,7 +35,7 @@ class BlazinJoin extends PluginBase implements Listener{
     const PREFIX = TextFormat::AQUA . "BlazinJoin" . TextFormat::GOLD . " > ";
 
     public function onEnable() : void{
-        $this->getLogger()->info(self::PREFIX . "BlazinJoin " . self::VERSION . " by iiFlamiinBlaze enabled!");
+        $this->getLogger()->info("BlazinJoin " . self::VERSION . " by iiFlamiinBlaze enabled");
         @mkdir($this->getDataFolder());
         $this->saveDefaultConfig();
     }
@@ -130,9 +130,5 @@ class BlazinJoin extends PluginBase implements Listener{
             }
         }
         return true;
-    }
-
-    public function onDisable() : void{
-        $this->getLogger()->info(self::PREFIX . "BlazinJoin " .  self::VERSION . " by iiFlamiinBlaze disabled!");
     }
 }
