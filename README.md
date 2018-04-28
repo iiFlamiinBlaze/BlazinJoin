@@ -2,6 +2,8 @@
 
 <a href="https://discord.gg/znEsFsG"><img src="https://discordapp.com/api/guilds/425712766687510528/embed.png" alt="Discord server"/></a> 
 
+<a href="https://poggit.pmmp.io/p/BlazinJoin"><img src="https://poggit.pmmp.io/shield.state/BlazinJoin"></a>
+
 ## License
 * [BlazinJoin License](https://github.com/iiFlamiinBlaze/BlazinJoin/blob/master/LICENSE), make sure to read all of the license!
 * This license is subject to change at anytime! 
