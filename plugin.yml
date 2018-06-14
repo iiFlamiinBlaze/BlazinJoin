@@ -11,4 +11,4 @@ commands:
   permission: blazinjoin.command
 permissions:
  blazinjoin.command:
-  default: true
+  default: op
