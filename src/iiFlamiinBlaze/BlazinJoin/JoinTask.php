@@ -23,16 +23,15 @@ namespace iiFlamiinBlaze\BlazinJoin;
 
 use pocketmine\network\mcpe\protocol\LevelEventPacket;
 use pocketmine\Player;
-use pocketmine\scheduler\PluginTask;
+use pocketmine\scheduler\Task;
 
-class JoinTask extends PluginTask{
+class JoinTask extends Task{
 
 	/** @var Player $player */
 	private $player;
 
-	public function __construct(BlazinJoin $main, Player $player){
+	public function __construct(Player $player){
 		$this->player = $player;
-		parent::__construct($main);
 	}
 
 	public function onRun(int $tick) : void{

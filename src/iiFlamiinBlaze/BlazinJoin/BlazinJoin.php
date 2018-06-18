@@ -31,7 +31,7 @@ use pocketmine\event\player\PlayerJoinEvent;
 
 class BlazinJoin extends PluginBase implements Listener{
 
-	public const VERSION = "v1.1.3";
+	public const VERSION = "v1.1.4";
 	public const PREFIX = TextFormat::AQUA . "BlazinJoin" . TextFormat::GOLD . " > ";
 
 	/** @var self $instance */
@@ -45,7 +45,7 @@ class BlazinJoin extends PluginBase implements Listener{
 	}
 
 	public function onJoin(PlayerJoinEvent $event) : void{
-		$this->getServer()->getScheduler()->scheduleDelayedTask(new JoinTask($this, $event->getPlayer()), 35);
+		$this->getScheduler()->scheduleDelayedTask(new JoinTask($event->getPlayer()), 35);
 	}
 
 	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{
