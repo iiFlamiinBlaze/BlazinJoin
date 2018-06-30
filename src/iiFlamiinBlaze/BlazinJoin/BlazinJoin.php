@@ -46,12 +46,13 @@ class BlazinJoin extends PluginBase implements Listener{
 
 	public function onJoin(PlayerJoinEvent $event) : void{
 		$this->getScheduler()->scheduleDelayedTask(new JoinTask($event->getPlayer()), 35);
+		$event->setJoinMessage(str_replace(["&", "{player}"], ["§", $event->getPlayer()->getName()], $this->getConfig()->get("join-message")));
 	}
 
 	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{
 		if($command->getName() === "blazinjoin"){
 			if(empty($args[0])){
-				$sender->sendMessage(self::PREFIX . TextFormat::GRAY . "Usage: /blazinjoin <info | set> <title | subtitle | message | curse> <message>");
+				$sender->sendMessage(self::PREFIX . TextFormat::GRAY . "Usage: /blazinjoin <info | set> <title | subtitle | message | curse | joinmessage> <message>");
 				return false;
 			}
 			if(!$sender instanceof Player){
@@ -107,6 +108,17 @@ class BlazinJoin extends PluginBase implements Listener{
 								$sender->sendMessage(self::PREFIX . TextFormat::GREEN . "You have now set a new message in BlazinJoin config");
 							}else{
 								$sender->sendMessage(self::PREFIX . TextFormat::RED . "You have to set the message to a string.");
+								return false;
+							}
+							break;
+						case "joinmessage":
+							if(is_string($args[2])){
+								$config = $this->getConfig();
+								$config->set("join-message", $args[2]);
+								$config->save();
+								$sender->sendMessage(self::PREFIX . TextFormat::GREEN . "You have now set a new join message in BlazinJoin config");
+							}else{
+								$sender->sendMessage(self::PREFIX . TextFormat::RED . "You have to set the join message to a string.");
 								return false;
 							}
 							break;

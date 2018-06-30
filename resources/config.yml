@@ -15,6 +15,7 @@
 #      no-permission: "&cYou do not have permission to use this command"
 #      guardian-curse: "enabled"
 #      message: "&aWelcome to the server {player}"
+#      join-message: "&a{player} joined"
 
 # The below config is the message on top that sends when a player joins the server (title).
 title: "&aWelcome to the Server"
@@ -30,4 +31,7 @@ guardian-curse: "enabled"
 
 # The below config allows you to send a message to the player when they join.
 message: "&aWelcome to the server {player}"
+
+# The below config allows you to change the join message of a player
+join-message: "&a{player} joined"
 ...
