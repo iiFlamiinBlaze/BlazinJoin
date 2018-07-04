@@ -31,7 +31,7 @@ use pocketmine\event\player\PlayerJoinEvent;
 
 class BlazinJoin extends PluginBase implements Listener{
 
-	public const VERSION = "v1.1.4";
+	public const VERSION = "v1.1.5";
 	public const PREFIX = TextFormat::AQUA . "BlazinJoin" . TextFormat::GOLD . " > ";
 
 	/** @var self $instance */
@@ -41,12 +41,14 @@ class BlazinJoin extends PluginBase implements Listener{
 		self::$instance = $this;
 		@mkdir($this->getDataFolder());
 		$this->saveDefaultConfig();
+		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		$this->getLogger()->info("BlazinJoin " . self::VERSION . " by iiFlamiinBlaze enabled");
 	}
 
 	public function onJoin(PlayerJoinEvent $event) : void{
-		$this->getScheduler()->scheduleDelayedTask(new JoinTask($event->getPlayer()), 35);
-		$event->setJoinMessage(str_replace(["&", "{player}"], ["§", $event->getPlayer()->getName()], $this->getConfig()->get("join-message")));
+		$player = $event->getPlayer();
+		$this->getScheduler()->scheduleDelayedTask(new JoinTask($player), 30);
+		$event->setJoinMessage(str_replace(["&", "{player}"], ["§", $player->getName()], strval($this->getConfig()->get("join-message"))));
 	}
 
 	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{

@@ -36,10 +36,7 @@ class JoinTask extends Task{
 
 	public function onRun(int $tick) : void{
 		$config = BlazinJoin::getInstance()->getConfig();
-		$title = str_replace("&", "§", $config->get("title"));
-		$title = str_replace("{player}", $this->player->getName(), $title);
-		$subtitle = str_replace("&", "§", $config->get("subtitle"));
-		$this->player->addTitle($title, $subtitle);
+		$this->player->addTitle(str_replace("&", "§", strval($config->get("title"))), str_replace("&", "§", strval($config->get("subtitle"))));
 		if($config->get("guardian-curse") === "enabled"){
 			$pk = new LevelEventPacket();
 			$pk->evid = LevelEventPacket::EVENT_GUARDIAN_CURSE;
@@ -47,7 +44,7 @@ class JoinTask extends Task{
 			$pk->position = $this->player->asVector3();
 			$this->player->dataPacket($pk);
 		}
-		$message = str_replace("&", "§", $config->get("message"));
+		$message = str_replace("&", "§", strval($config->get("message")));
 		$message = str_replace("{player}", $this->player->getName(), $message);
 		$message = str_replace("{line}", "\n", $message);
 		$this->player->sendMessage($message);
