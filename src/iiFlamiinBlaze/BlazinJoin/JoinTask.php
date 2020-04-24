@@ -21,9 +21,13 @@ declare(strict_types=1);
 
 namespace iiFlamiinBlaze\BlazinJoin;
 
+use pocketmine\item\Item;
+use pocketmine\level\particle\Particle;
+use pocketmine\network\mcpe\protocol\ActorEventPacket;
 use pocketmine\network\mcpe\protocol\LevelEventPacket;
 use pocketmine\Player;
 use pocketmine\scheduler\Task;
+use pocketmine\utils\TextFormat;
 
 class JoinTask extends Task{
 
@@ -36,7 +40,7 @@ class JoinTask extends Task{
 
 	public function onRun(int $tick) : void{
 		$config = BlazinJoin::getInstance()->getConfig();
-		$this->player->addTitle(str_replace("&", "§", strval($config->get("title"))), str_replace("&", "§", strval($config->get("subtitle"))));
+		$this->player->addTitle(TextFormat::colorize(strval($config->get("title"))),TextFormat::colorize(strval($config->get("subtitle"))));
 		if($config->get("guardian-curse") === "enabled"){
 			$pk = new LevelEventPacket();
 			$pk->evid = LevelEventPacket::EVENT_GUARDIAN_CURSE;
@@ -44,9 +48,26 @@ class JoinTask extends Task{
 			$pk->position = $this->player->asVector3();
 			$this->player->dataPacket($pk);
 		}
-		$message = str_replace("&", "§", strval($config->get("message")));
-		$message = str_replace("{player}", $this->player->getName(), $message);
-		$message = str_replace("{line}", "\n", $message);
-		$this->player->sendMessage($message);
+		if($config->get("totem-effect") === "enabled"){
+			$item = $this->player->getInventory()->getItemInHand();
+			$this->player->getInventory()->setItemInHand(Item::get(Item::TOTEM));
+			$pk = new LevelEventPacket();
+			$pk->position = $this->player->asVector3();
+			$pk->evid = LevelEventPacket::EVENT_SOUND_TOTEM;
+			$pk->data = 0;
+			$this->player->sendDataPacket($pk);
+			$pk = new LevelEventPacket;
+			$pk->evid = LevelEventPacket::EVENT_ADD_PARTICLE_MASK | (Particle::TYPE_TOTEM & 0xFFF);
+			$pk->position = $this->player->asVector3();
+			$pk->data = 0;
+			$this->player->sendDataPacket($pk);
+			$pk = new ActorEventPacket();
+			$pk->entityRuntimeId = $this->player->getId();
+			$pk->event = ActorEventPacket::CONSUME_TOTEM;
+			$pk->data = 0;
+			$this->player->sendDataPacket($pk);
+			$this->player->getInventory()->setItemInHand($item);
+		}
+		$this->player->sendMessage(TextFormat::colorize(str_replace(["{player}", "{line}"], [$this->player->getName(), "\n"], strval($config->get("message")))));
 	}
 }

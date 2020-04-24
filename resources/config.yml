@@ -14,6 +14,7 @@
 #      subtitle: "&bThis is a great server!"
 #      no-permission: "&cYou do not have permission to use this command"
 #      guardian-curse: "enabled"
+#      totem-effect: "disabled"
 #      message: "&aWelcome to the server {player}"
 #      join-message: "&a{player} joined"
 
@@ -28,6 +29,9 @@ no-permission: "&cYou do not have permission to use this command"
 
 # The below config enabled or disables the elder guardian curse when you join the server (Options: enabled or disabled).
 guardian-curse: "enabled"
+
+# The below config enables or disables the totem effect when you join the server (Options: enabled or disabled)
+totem-effect: "disabled"
 
 # The below config allows you to send a message to the player when they join.
 message: "&aWelcome to the server {player}"

@@ -31,8 +31,8 @@ use pocketmine\event\player\PlayerJoinEvent;
 
 class BlazinJoin extends PluginBase implements Listener{
 
-	public const VERSION = "v1.1.5";
-	public const PREFIX = TextFormat::AQUA . "BlazinJoin" . TextFormat::GOLD . " > ";
+	const VERSION = "v1.1.6";
+	const PREFIX = TextFormat::AQUA . "BlazinJoin" . TextFormat::GOLD . " > ";
 
 	/** @var self $instance */
 	private static $instance;
@@ -48,13 +48,13 @@ class BlazinJoin extends PluginBase implements Listener{
 	public function onJoin(PlayerJoinEvent $event) : void{
 		$player = $event->getPlayer();
 		$this->getScheduler()->scheduleDelayedTask(new JoinTask($player), 30);
-		$event->setJoinMessage(str_replace(["&", "{player}"], ["§", $player->getName()], strval($this->getConfig()->get("join-message"))));
+		$event->setJoinMessage(TextFormat::colorize(str_replace(["{line}", "{player}"], ["\n", $player->getName()], strval($this->getConfig()->get("join-message")))));
 	}
 
 	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{
-		if($command->getName() === "blazinjoin"){
+		if(strtolower($command->getName()) === "blazinjoin"){
 			if(empty($args[0])){
-				$sender->sendMessage(self::PREFIX . TextFormat::GRAY . "Usage: /blazinjoin <info | set> <title | subtitle | message | curse | joinmessage> <message>");
+				$sender->sendMessage(self::PREFIX . TextFormat::GRAY . "Usage: /blazinjoin <info | set> <title | subtitle | message | curse | totem | joinmessage> <message>");
 				return false;
 			}
 			if(!$sender instanceof Player){
@@ -62,28 +62,26 @@ class BlazinJoin extends PluginBase implements Listener{
 				return false;
 			}
 			if(!$sender->hasPermission("blazinjoin.command")){
-				$config = $this->getConfig();
-				$message = str_replace("&", "§", $config->get("no-permission"));
-				$message = str_replace("{player}", $sender->getName(), $message);
-				$message = str_replace("{line}", "\n", $message);
-				$sender->sendMessage($message);
+				$sender->sendMessage(TextFormat::colorize(str_replace(["{player}", "{line}"], [$sender->getName(), "\n"], strval($this->getConfig()->get("no-permission")))));
 				return false;
 			}
 			switch($args[0]){
 				case "info":
-					$sender->sendMessage(TextFormat::DARK_GRAY . "-=========BlazinJoin " . self::VERSION . " =========-");
-					$sender->sendMessage(TextFormat::GREEN . "Author: iiFlamiinBlaze");
-					$sender->sendMessage(TextFormat::GREEN . "GitHub: https://github.com/iiFlamiinBlaze");
-					$sender->sendMessage(TextFormat::GREEN . "Support: https://discord.gg/znEsFsG");
-					$sender->sendMessage(TextFormat::GREEN . "Description: Allows you to customize multiple things when a player joins your server");
-					$sender->sendMessage(TextFormat::DARK_GRAY . "-===============================-");
+					foreach($messages = [
+						TextFormat::DARK_GRAY . "-=========BlazinJoin " . self::VERSION . " =========-",
+						TextFormat::GREEN . "Author: iiFlamiinBlaze",
+						TextFormat::GREEN . "GitHub: https://github.com/iiFlamiinBlaze",
+						TextFormat::GREEN . "Support: https://discord.gg/znEsFsG",
+						TextFormat::GREEN . "Description: Allows you to customize multiple things when a player joins your server",
+						TextFormat::DARK_GRAY . "-===============================-"
+					] as $message) $sender->sendMessage($message);
 					break;
 				case "set":
 					switch($args[1]){
 						case "title":
 							if(is_string($args[2])){
 								$config = $this->getConfig();
-								$config->set("title", $args[2]);
+								$config->set("title", implode(" ", array_slice($args, 2)));
 								$config->save();
 								$sender->sendMessage(self::PREFIX . TextFormat::GREEN . "You have now set a new title in BlazinJoin config");
 							}else{
@@ -94,7 +92,7 @@ class BlazinJoin extends PluginBase implements Listener{
 						case "subtitle":
 							if(is_string($args[2])){
 								$config = $this->getConfig();
-								$config->set("subtitle", $args[2]);
+								$config->set("subtitle", implode(" ", array_slice($args, 2)));
 								$config->save();
 								$sender->sendMessage(self::PREFIX . TextFormat::GREEN . "You have now set a new subtitle in BlazinJoin config");
 							}else{
@@ -105,7 +103,7 @@ class BlazinJoin extends PluginBase implements Listener{
 						case "message":
 							if(is_string($args[2])){
 								$config = $this->getConfig();
-								$config->set("message", $args[2]);
+								$config->set("message", implode(" ", array_slice($args, 2)));
 								$config->save();
 								$sender->sendMessage(self::PREFIX . TextFormat::GREEN . "You have now set a new message in BlazinJoin config");
 							}else{
@@ -116,7 +114,7 @@ class BlazinJoin extends PluginBase implements Listener{
 						case "joinmessage":
 							if(is_string($args[2])){
 								$config = $this->getConfig();
-								$config->set("join-message", $args[2]);
+								$config->set("join-message", implode(" ", array_slice($args, 2)));
 								$config->save();
 								$sender->sendMessage(self::PREFIX . TextFormat::GREEN . "You have now set a new join message in BlazinJoin config");
 							}else{
@@ -140,6 +138,25 @@ class BlazinJoin extends PluginBase implements Listener{
 									break;
 								default:
 									$sender->sendMessage(self::PREFIX . TextFormat::RED . "You must set the curse to enabled or disabled!");
+									break;
+							}
+							break;
+						case "totem":
+							switch($args[2]){
+								case "enabled":
+									$config = $this->getConfig();
+									$config->set("totem-effect", "enabled");
+									$config->save();
+									$sender->sendMessage(self::PREFIX . TextFormat::GREEN . "You have now set the totem effect to enabled in BlazinJoin config");
+									break;
+								case "disabled":
+									$config = $this->getConfig();
+									$config->set("totem-effect", "disabled");
+									$config->save();
+									$sender->sendMessage(self::PREFIX . TextFormat::GREEN . "You have now set the totem effect to disabled in BlazinJoin config");
+									break;
+								default:
+									$sender->sendMessage(self::PREFIX . TextFormat::RED . "You must set the totem effect to enabled or disabled!");
 									break;
 							}
 							break;
