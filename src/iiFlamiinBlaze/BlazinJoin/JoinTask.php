@@ -40,7 +40,11 @@ class JoinTask extends Task{
 
 	public function onRun(int $tick) : void{
 		$config = BlazinJoin::getInstance()->getConfig();
-		$this->player->addTitle(TextFormat::colorize(strval($config->get("title"))),TextFormat::colorize(strval($config->get("subtitle"))));
+		$this->player->addTitle(TextFormat::colorize(strval($config->get("title"))), TextFormat::colorize(strval($config->get("subtitle"))));
+		if(!$this->player->hasPlayedBefore()){
+			$message = TextFormat::colorize(str_replace(["{player}", "{line}"], [$this->player->getName(), "\n"], strval($config->get("new-player-message"))));
+			$config->get("new-player-message-type") === "server" ? (BlazinJoin::getInstance()->getServer()->broadcastMessage($message)) : ($this->player->sendMessage($message));
+		}
 		if($config->get("guardian-curse") === "enabled"){
 			$pk = new LevelEventPacket();
 			$pk->evid = LevelEventPacket::EVENT_GUARDIAN_CURSE;
